@@ -62,7 +62,12 @@
                 half4 bgColor = tex2Dproj(_BackgroundTexture, data.grabUV);
                 half4 menuColor = tex2D(_MenuTexture, data.uv);
                 
-                half4 result = lerp(menuColor * 1.5, menuColor, distance(menuColor, bgColor));
+                half4 result = menuColor;
+                
+                if (distance(menuColor, bgColor) < 0.4) {
+                    result = menuColor * (1.6 - distance(menuColor, bgColor));
+                }
+                
                 result.a = menuColor.a;
                 
                 return result;
